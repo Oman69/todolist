@@ -1,0 +1,25 @@
+{% extends 'todo/base.html' %}
+{% block title %} {{user.username}} todos page {% endblock %}
+{% block content%}
+<h1>{{user.username}} todos</h1>
+<div class="row">
+{% for item in todos %}
+<div class="col-md-3">
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+      <p>{{item.created_at}}</p>
+
+      {% if item.important %}
+        <p class="card-title" style="color: red; font-weight: 800">{{item.title}}</p>
+      {% else %}
+        <h5 class="card-title">{{item.title}}</h5>
+      {% endif %}
+    <p class="card-text">{{item.text}}</p>
+    <a href="#" class="card-link">Выполнено</a>
+    <a href="#" class="card-link">Удалить</a>
+  </div>
+</div>
+</div>
+{% endfor %}
+    </div>
+{% endblock%}

@@ -1,0 +1,12 @@
+{% extends 'todo/base.html' %}
+{% block title %} Страница входа пользователя {% endblock %}
+{% block content %}
+    <h1>Страница входа</h1>
+    <span style="color:red; font-weight: bold">{{ error }}</span>
+    <form method="POST">
+        {% csrf_token %}
+       {{form.as_p}}
+        <button type="submit">Войти</button>
+    </form>
+
+{% endblock %}

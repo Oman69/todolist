@@ -1,0 +1,12 @@
+{% extends 'todo/base.html' %}
+{% block title %} Страница регистрации нового пользователя {% endblock %}
+{% block content %}
+    <h1>Страница регистрации</h1>
+    <span style="color:red; font-weight: bold">{{ error }}</span>
+    <form method="POST">
+        {% csrf_token %}
+       {{form.as_p}}
+        <button type="submit">Sign Up</button>
+    </form>
+
+{% endblock %}
