@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -10,6 +10,8 @@ from .forms import ToDoForm
 
 def home (request):
     return render(request, 'todo/home.html')
+
+
 
 def signup_user(request):
     if request.method == 'GET':
@@ -35,9 +37,14 @@ def signup_user(request):
 
 
 def current_todo(request):
-    todos = ToDo.objects.filter(user=request.user)
-
+    todos = ToDo.objects.filter(user=request.user, deadline__isnull=True)
     return render(request, 'todo/current.html', {'todos': todos})
+
+
+def view_todo(request, todo_pk):
+    todos = get_object_or_404(ToDo, pk=todo_pk)
+    form = ToDoForm(instance=todos)
+    return render(request, 'todo/view.html', {'todos': todos, 'form': form})
 
 def create_todo(request):
     if request.method == 'GET':

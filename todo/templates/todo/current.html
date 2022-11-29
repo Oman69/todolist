@@ -15,7 +15,7 @@
         <h5 class="card-title">{{item.title}}</h5>
       {% endif %}
     <p class="card-text">{{item.text}}</p>
-    <a href="#" class="card-link">Выполнено</a>
+    <a href="{% url 'view_todo' item.id %}" class="card-link">Изменить</a>
     <a href="#" class="card-link">Удалить</a>
   </div>
 </div>
