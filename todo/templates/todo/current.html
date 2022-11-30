@@ -16,7 +16,7 @@
       {% endif %}
     <p class="card-text">{{item.text}}</p>
     <a href="{% url 'view_todo' item.id %}" class="card-link">Изменить</a>
-    <a href="#" class="card-link">Удалить</a>
+    <a href="{% url 'delete_todo' item.id %}" class="card-link">Удалить</a>
   </div>
 </div>
 </div>

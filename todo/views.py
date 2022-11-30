@@ -12,7 +12,6 @@ def home (request):
     return render(request, 'todo/home.html')
 
 
-
 def signup_user(request):
     if request.method == 'GET':
         return render(request, 'todo/signup_user.html', {'form': UserCreationForm()})
@@ -42,9 +41,28 @@ def current_todo(request):
 
 
 def view_todo(request, todo_pk):
-    todos = get_object_or_404(ToDo, pk=todo_pk)
-    form = ToDoForm(instance=todos)
-    return render(request, 'todo/view.html', {'todos': todos, 'form': form})
+    todos = get_object_or_404(ToDo, pk=todo_pk, user=request.user)
+    if request.method == 'GET':
+        form = ToDoForm(instance=todos)
+        return render(request, 'todo/view.html', {'todos': todos, 'form': form})
+    else:
+        try:
+            form = ToDoForm(request.POST, instance=todos)
+            form.save()
+            return redirect('current_todo')
+        except ValueError:
+            return render(request, 'todo/view.html', {'todos': todos, 'form': form, 'error': 'Bad data!'})
+
+
+
+def delete_todo(request, todo_pk):
+    todos = get_object_or_404(ToDo, pk=todo_pk, user=request.user)
+    if request.method == 'GET':
+        todos.delete()
+        return redirect('current_todo')
+    else:
+        pass
+
 
 def create_todo(request):
     if request.method == 'GET':

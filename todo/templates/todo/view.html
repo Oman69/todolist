@@ -2,5 +2,11 @@
 {% block title %} My View Page {% endblock %}
 {% block content%}
 <h1>{{ todos.title }}</h1>
-<p>{{ todos.text }}</p>
+<form method="POST">
+    {% csrf_token %}
+{{form.as_p}}
+    <button type="submit" class="btn btn-primary"> Сохранить</button>
+</form>
+
+
 {% endblock%}
